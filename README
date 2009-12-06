@@ -1,4 +1,4 @@
-Support files for Ceres, requires Mac OS X 10.5 and later
+Support code for Ceres, requires Mac OS X 10.6 and later
 
 Requires:
-* MacRuby 0.4 or later
+* MacRuby 0.5 or later
