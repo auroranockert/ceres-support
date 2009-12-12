@@ -1,3 +1,5 @@
+require 'thread'
+
 require 'ceres/support/symbol'
 require 'ceres/support/string'
 

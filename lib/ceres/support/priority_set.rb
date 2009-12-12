@@ -1,7 +1,7 @@
 module Ceres
   class PrioritySet
     def initialize(&block)
-      @array, @size = [], 0
+      @array, @size, @mutex = [], 0, Mutex.new
       
       if block_given?
         @comparer = block
@@ -11,25 +11,36 @@ module Ceres
     end
     
     def size
-      @array.size
+      @mutex.synchronize do
+        @array.size
+      end
     end
     
     def empty?
-      @array.empty?
+      @mutex.synchronize do
+        @array.empty?
+      end
     end
     
     def peek
-      @array.first
+      @mutex.synchronize do
+        @array.first
+      end
     end
     
     def pop
-      @array.shift
+      @mutex.synchronize do
+        @array.shift
+      end
     end
     
     def push(*values)
-      @array = (@array + values)
-      @array.uniq!
-      @array.sort! &@comparer
+      @mutex.synchronize do
+        @array = (@array + values)
+        @array.uniq!
+        @array.sort! &@comparer
+      end
+      
       self
     end
   end
